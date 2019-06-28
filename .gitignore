@@ -1,0 +1,8 @@
+**/bin
+**/obj
+**/node_modules
+.DS_Store
+.env
+**/compiled
+**/build
+.idea
