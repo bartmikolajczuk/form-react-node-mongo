@@ -1,0 +1,18 @@
+@import "../../consts/colors.scss";
+.navBar {
+  background-color: $blue;
+  height: 79px;
+  box-sizing: content-box;
+  text-align: left;
+  border-top: 1em solid $darkblue;
+}
+.navBarTitle {
+  line-height: 79px;
+  padding-left: 2vw;
+  font-weight: 300;
+  color: $white;
+}
+.container {
+  width: 50%;
+  margin: 0 auto;
+}

@@ -1,0 +1,79 @@
+@import "../../consts/colors.scss";
+
+.title {
+  color: $blue;
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid $silver;
+  padding: 10px 0 10px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: Lato, sans-serif, Helvetica, Arial;
+  margin: auto;
+  width: 100%;
+  background-color: $lightsilver;
+  padding: 10px;
+}
+.inlineWrapper {
+  display: flex;
+  width: 100%;
+}
+.short {
+  display: flex;
+  width: 60px;
+}
+.ghost {
+  visibility: hidden;
+}
+.submitButton {
+  width: 10%;
+  height: 50px;
+  color: $white;
+  background-color: $orange;
+  margin: 2em auto;
+  border-radius: 4px;
+  text-align: center;
+  align-items: flex-start;
+  display: block;
+
+  border-width: 0;
+}
+.inlineElement {
+  flex: 1;
+}
+.formTopic {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 4px;
+  box-shadow: $silver 0 0 5;
+  background-color: $white;
+  padding: 1vw 2vw;
+}
+
+.inputItemWrapper {
+  display: flex;
+  width: 100%;
+}
+.contentPart {
+  flex: 1;
+  width: 100%;
+  display: flex;
+}
+.shortInput {
+  flex: 1;
+  height: 28px;
+  border: 1px solid $silver;
+  margin-top: 2px;
+  box-sizing: border-box;
+}
+.shortInputInfo {
+  display: inline-block;
+  flex: 1;
+  margin-left: 0.5em;
+}
