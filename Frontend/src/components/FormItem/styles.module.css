@@ -26,6 +26,13 @@
   margin: 10px 0;
 }
 
+.errorMessage {
+  color: #FF0000;
+  font-size: small;
+  padding-left: 0.5em;
+  padding-top: 0.2em;
+}
+
 .emphasize {
   color: #FF0000;
 }

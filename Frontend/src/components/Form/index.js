@@ -7,7 +7,7 @@ function validateEmail(value) {
   if (emailRex.test(value)) {
     return {isValid: true, errorMsg: null}
   } else {
-    return {isValid: false, errorMsg: "incorrect email"}
+    return {isValid: false, errorMsg: "Given email is not valid!"}
   }
 }
 
@@ -16,10 +16,11 @@ const Form = () => {
   return (
     <>
       <div className={styles.formTopic}>
-        <FormItem title={"First Name"} type={"text"} required={true} placeholderMsg={"insert first name here"}/>
-        <FormItem title={"Last Name"} type={"text"} required={true}/>
-        <FormItem title={"Email"} type={"text"} required={true} customValidation={validateEmail}/>
-        <FormItem title={"Event Date"} type={"date"} required={true} />
+        <FormItem title={"First Name"} type={"text"} isRequired={true} placeholderMsg={'Type first name here'}/>
+        <FormItem title={"Last Name"} type={"text"} isRequired={true} placeholderMsg={'Type last name here'}/>
+        <FormItem title={"Email"} type={"text"} isRequired={false} placeholderMsg={'Type email here'} customValidation={validateEmail}/>
+        <FormItem title={"Event Date"} type={"date"} isRequired={true} />
+
       </div>
       <button type="submit" className={styles.submitButton}>
         PUBLISH EVENT

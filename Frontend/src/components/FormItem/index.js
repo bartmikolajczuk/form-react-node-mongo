@@ -1,44 +1,41 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
-import {
-  Container, Col, Form,
-  FormGroup, Label, Input,
-  Button, FormText, FormFeedback,
-} from 'reactstrap';
-
-
+import {Label, Input} from 'reactstrap';
 
 class FormItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fieldValue: '',
-      isValid: false,
-      isInvalid: false,
+      validationState: '',
       errorMsg: ''
-
     };
   }
 
   handleValidation() {
-    if (this.props.required && this.state.fieldValue.length === 0) {
-      this.setState({isValid: false});
-      this.setState({isInvalid: true});
-      this.setState({errorMsg: this.props.title + ' is required!'})
+    if (this.props.isRequired) {
+      this.setState({validationState: this.state.fieldValue.length === 0 ? 'invalid' : 'valid'});
+      this.setState({errorMsg: this.state.fieldValue.length === 0 ? this.props.title + ' is required!' : ''})
     }
-    else {
-      this.setState({isValid: true});
-      this.setState({isInvalid: false});
-      this.setState({errorMsg: ''});
-      if (this.props.customValidation) {
-        let isValid = this.props.customValidation(this.state.fieldValue).isValid;
-        let errorMsg = this.props.customValidation(this.state.fieldValue).errorMsg;
-        this.setState({isValid: isValid});
-        this.setState({isInvalid: !isValid});
-        this.setState({errorMsg: errorMsg})
 
-      }
+    // if (this.props.isRequired && this.state.fieldValue.length === 0) {
+    //   this.setState({validationState: 'invalid'});
+    //   this.setState({errorMsg: this.props.title + ' is required!'})
+    // }
+    // else if (this.props.isRequired && this.state.fieldValue.length > 0) {
+    //   this.setState({validationState: 'valid'});
+    //   this.setState({errorMsg: ''})
+    // }
+    else if (this.props.customValidation && this.state.fieldValue.length > 0) {
+      let isValid = this.props.customValidation(this.state.fieldValue).isValid;
+      let errorMsg = this.props.customValidation(this.state.fieldValue).errorMsg;
+      this.setState({validationState: isValid ? 'valid' : 'invalid'});
+      this.setState({errorMsg: isValid ? '' : errorMsg})
+    }
+    else if (!this.props.isRequired && this.state.fieldValue.length === 0) {
+      this.setState({validationState: ''});
+      this.setState({errorMsg: ''})
     }
 
   }
@@ -46,22 +43,21 @@ class FormItem extends React.Component {
   render() {
     return (
       <div className={styles.formItem}>
-        <FormGroup className={styles.formGroup}>
-          <Label>{this.props.title}</Label>
+        <div className={styles.formGroup}>
+          <Label>{this.props.title}{this.props.isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
           <Input
             type={this.props.type}
-            name=""
-            id=""
+            name={this.props.title}
             placeholder={this.props.placeholderMsg}
             value={this.state.fieldValue}
-            valid={this.state.isValid}
-            invalid={this.state.isInvalid}
+            valid={this.state.validationState === 'valid'}
+            invalid={this.state.validationState === 'invalid'}
             onChange={(e) => {
-              this.setState({fieldValue: e.target.value}, ()=> this.handleValidation());
+              this.setState({fieldValue: e.target.value}, () => this.handleValidation());
             }}
           />
-          <div>{this.state.errorMsg}</div>
-        </FormGroup>
+          <div className={styles.errorMessage}>{this.state.errorMsg ? this.state.errorMsg : '\u00A0'}</div>
+        </div>
       </div>
     )
   }
