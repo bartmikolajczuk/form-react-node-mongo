@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import {Label, Input} from 'reactstrap';
@@ -7,7 +7,9 @@ import "./react-datepicker.css";
 import * as classNames from '../../consts/classNames'
 import * as validationStates from '../../consts/validationStates'
 import * as errorMessages from '../../consts/errorMessages'
+import * as errorTypes from '../../consts/errorTypes'
 import * as inputTypes from '../../consts/inputTypes'
+import {validate} from '../../validationModule'
 
 class FormItem extends React.Component {
   constructor(props) {
@@ -15,25 +17,12 @@ class FormItem extends React.Component {
     this.state = {
       fieldValue: '',
       validationState: '',
-      errorMsg: ''
+      errorMsg: '',
+      errorType: ''
     };
   }
 
-  handleValidation() {
-    if (this.props.isRequired) {
-      this.setState({validationState: !this.state.fieldValue ? validationStates.invalid : validationStates.valid});
-      this.setState({errorMsg: !this.state.fieldValue ? errorMessages.isRequired(this.props.title) : errorMessages.emptyMsg})
-    } else if (this.props.customValidation && !!this.state.fieldValue) {
-      let {isValid, errorMsg} = this.props.customValidation(this.state.fieldValue);
-      this.setState({validationState: isValid ? validationStates.valid : validationStates.invalid});
-      this.setState({errorMsg: isValid ? errorMessages.emptyMsg : errorMsg})
-    } else if (!this.props.isRequired && !this.state.fieldValue) {
-      this.setState({validationState: validationStates.neutral});
-      this.setState({errorMsg: validationStates.neutral})
-    }
-  }
-
-  customClassNameSwitch() {
+  validationClassNameSwitch() {
     if (this.state.validationState === validationStates.valid) {
       return classNames.valid
     }
@@ -42,9 +31,17 @@ class FormItem extends React.Component {
     }
     return null
   }
-
+  generateErrorMessage() {
+    if (this.state.errorType === errorTypes.isRequired) {
+      return errorMessages.isRequired(this.props.title);
+    }
+    if (this.state.errorType === errorTypes.invalidEmail) {
+      return errorMessages.invalidEmail;
+    }
+    return errorMessages.emptyMsg;
+  }
   inputTypeSwitch() {
-    let input = null;
+    let input;
     switch (this.props.type) {
       case inputTypes.text :
         input = <Input
@@ -55,7 +52,12 @@ class FormItem extends React.Component {
           valid={this.state.validationState === validationStates.valid}
           invalid={this.state.validationState === validationStates.invalid}
           onChange={(e) => {
-            this.setState({fieldValue: e.target.value}, () => this.handleValidation());
+            this.setState({fieldValue: e.target.value}, () => {
+              this.setState({
+                validationState: validate(this.state.fieldValue, this.props.validation).validationState,
+                errorType: validate(this.state.fieldValue, this.props.validation).errorType
+              })
+            });
           }}
         />;
         break;
@@ -63,23 +65,31 @@ class FormItem extends React.Component {
         input = <DatePicker
           selected={this.state.fieldValue}
           onChange={(dateValue) => {
-            this.setState({fieldValue: dateValue}, () => this.handleValidation());
+            this.setState({fieldValue: dateValue}, () => {
+              this.setState({
+                validationState: validate(this.state.fieldValue, this.props.validation).validationState,
+                errorType: validate(this.state.fieldValue, this.props.validation).errorType
+              })
+            });
           }}
+          minDate={new Date().setDate(new Date().getDate() + 1)}
           placeholderText={this.props.placeholderMsg}
-          className={this.customClassNameSwitch()}
-          // className={this.state.validationState === 'valid' ? 'react-datepicker__input-is-valid' : 'red'}
+          className={this.validationClassNameSwitch()}
         />;
         break;
+      default:
+        input = null;
     }
     return input;
   }
+
   render() {
     return (
       <div className={styles.formItem}>
         <div className={styles.formGroup}>
-          <Label>{this.props.title}{this.props.isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
+          <Label>{this.props.title}{this.props.validation.isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
           {this.inputTypeSwitch()}
-          <div className={styles.errorMessage}>{this.state.errorMsg ? this.state.errorMsg : '\u00A0'}</div>
+          <div className={styles.errorMessage}>{this.state.errorType ? this.generateErrorMessage() : '\u00A0'}</div>
         </div>
       </div>
     )
