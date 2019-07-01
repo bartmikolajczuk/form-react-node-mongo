@@ -30,8 +30,7 @@
   visibility: hidden;
 }
 .submitButton {
-  width: 10%;
-  height: 50px;
+  padding: 0.7em;
   color: $white;
   background-color: $pink;
   margin: 2em auto;
@@ -39,8 +38,10 @@
   text-align: center;
   align-items: flex-start;
   display: block;
-
   border-width: 0;
+}
+.submitButton:hover {
+  background-color: $lightPink;
 }
 .inlineElement {
   flex: 1;
