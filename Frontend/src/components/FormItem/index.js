@@ -40,8 +40,8 @@ class FormItem extends React.Component {
     return null
   }
 
-  render() {
-    let input;
+  inputTypeSwitch() {
+    let input = null;
     switch (this.props.type) {
       case 'text' :
         input = <Input
@@ -67,12 +67,14 @@ class FormItem extends React.Component {
         />;
         break;
     }
-
+    return input;
+  }
+  render() {
     return (
       <div className={styles.formItem}>
         <div className={styles.formGroup}>
           <Label>{this.props.title}{this.props.isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
-          {input}
+          {this.inputTypeSwitch()}
           <div className={styles.errorMessage}>{this.state.errorMsg ? this.state.errorMsg : '\u00A0'}</div>
         </div>
       </div>
