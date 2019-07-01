@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import styles from './styles.module.scss'
 import FormItem from "../FormItem";
+import * as placeholders from '../../consts/placeholders'
+import * as titles from '../../consts/titles'
+import * as inputTypes from '../../consts/inputTypes'
+
 
 function validateEmail(value) {
   const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -16,10 +20,10 @@ const Form = () => {
   return (
     <>
       <div className={styles.formTopic}>
-        <FormItem title={"First Name"} type={"text"} isRequired={true} placeholderMsg={'Type first name here'}/>
-        <FormItem title={"Last Name"} type={"text"} isRequired={true} placeholderMsg={'Type last name here'}/>
-        <FormItem title={"Email"} type={"text"} isRequired={false} placeholderMsg={'Type email here'} customValidation={validateEmail}/>
-        <FormItem title={"Event Date"} type={"date"} isRequired={true} />
+        <FormItem title={titles.firstName} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.typeYourXHere(titles.firstName)}/>
+        <FormItem title={titles.lastName} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.typeYourXHere(titles.lastName)}/>
+        <FormItem title={titles.email} type={inputTypes.text} isRequired={false} placeholderMsg={placeholders.typeYourXHere(titles.email)} customValidation={validateEmail}/>
+        <FormItem title={titles.eventDate} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.pickDate}/>
 
       </div>
       <button type="submit" className={styles.submitButton}>
