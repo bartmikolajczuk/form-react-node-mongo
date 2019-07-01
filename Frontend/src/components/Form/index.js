@@ -22,8 +22,8 @@ const Form = () => {
       <div className={styles.formTopic}>
         <FormItem title={titles.firstName} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.typeYourXHere(titles.firstName)}/>
         <FormItem title={titles.lastName} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.typeYourXHere(titles.lastName)}/>
-        <FormItem title={titles.email} type={inputTypes.text} isRequired={false} placeholderMsg={placeholders.typeYourXHere(titles.email)} customValidation={validateEmail}/>
-        <FormItem title={titles.eventDate} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.pickDate}/>
+        <FormItem title={titles.email} type={inputTypes.text} isRequired={true} placeholderMsg={placeholders.typeYourXHere(titles.email)} customValidation={validateEmail}/>
+        <FormItem title={titles.eventDate} type={inputTypes.date} isRequired={true} placeholderMsg={placeholders.pickDate}/>
 
       </div>
       <button type="submit" className={styles.submitButton}>

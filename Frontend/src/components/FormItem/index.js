@@ -23,10 +23,10 @@ class FormItem extends React.Component {
     if (this.props.isRequired) {
       this.setState({validationState: !this.state.fieldValue ? validationStates.invalid : validationStates.valid});
       this.setState({errorMsg: !this.state.fieldValue ? errorMessages.isRequired(this.props.title) : errorMessages.emptyMsg})
-    } else if (this.props.customValidation && !!this.state.fieldValue.length) {
-      let [isValid, errorMsg] = this.props.customValidation(this.state.fieldValue);
+    } else if (this.props.customValidation && !!this.state.fieldValue) {
+      let {isValid, errorMsg} = this.props.customValidation(this.state.fieldValue);
       this.setState({validationState: isValid ? validationStates.valid : validationStates.invalid});
-      this.setState({errorMsg: isValid ? '' : errorMsg})
+      this.setState({errorMsg: isValid ? errorMessages.emptyMsg : errorMsg})
     } else if (!this.props.isRequired && !this.state.fieldValue) {
       this.setState({validationState: validationStates.neutral});
       this.setState({errorMsg: validationStates.neutral})
