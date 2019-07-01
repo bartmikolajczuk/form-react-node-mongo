@@ -1,17 +1,87 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @import "../../consts/colors.scss";
- *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   styles.module.scss 1:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"../../consts/colors.scss\";\d\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles.module.scss 1:9  root stylesheet";
+.title {
+  color: #410C7A;
+  font-weight: 400;
+  text-align: left;
+  border-bottom: 1px solid #D8D8DA;
+  padding: 10px 0 10px;
 }
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: Lato, sans-serif, Helvetica, Arial;
+  margin: auto;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 10px;
+}
+
+.inlineWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.short {
+  display: flex;
+  width: 60px;
+}
+
+.ghost {
+  visibility: hidden;
+}
+
+.submitButton {
+  width: 10%;
+  height: 50px;
+  color: #fff;
+  background-color: #CC3363;
+  margin: 2em auto;
+  border-radius: 4px;
+  text-align: center;
+  align-items: flex-start;
+  display: block;
+  border-width: 0;
+}
+
+.inlineElement {
+  flex: 1;
+}
+
+.formTopic {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 4px;
+  box-shadow: #D8D8DA 0 0 5;
+  background-color: #fff;
+  padding: 1vw 2vw;
+}
+
+.inputItemWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.contentPart {
+  flex: 1;
+  width: 100%;
+  display: flex;
+}
+
+.shortInput {
+  flex: 1;
+  height: 28px;
+  border: 1px solid #D8D8DA;
+  margin-top: 2px;
+  box-sizing: border-box;
+}
+
+.shortInputInfo {
+  display: inline-block;
+  flex: 1;
+  margin-left: 0.5em;
+}
+
+/*# sourceMappingURL=styles.module.css.map */

@@ -1,17 +1,21 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @import "../../consts/colors.scss";
- *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   styles.module.scss 1:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"../../consts/colors.scss\";\d\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles.module.scss 1:9  root stylesheet";
+.navBar {
+  background-color: #410C7A;
+  height: 79px;
+  box-sizing: content-box;
+  text-align: left;
+  border-top: 1em solid #370A68;
 }
+
+.navBarTitle {
+  line-height: 79px;
+  padding-left: 2vw;
+  font-weight: 300;
+  color: #fff;
+}
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=styles.module.css.map */
