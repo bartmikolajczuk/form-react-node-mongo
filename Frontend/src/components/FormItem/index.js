@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import {Label, Input} from 'reactstrap';
@@ -19,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
     fieldValidation: state.formValidation[ownProps.title]
   };
 };
+
 function mapDispatchToProps(dispatch) {
   return {
     changeValue: field => dispatch(changeValue(field)),
@@ -26,62 +27,62 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class FormItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // fieldValue: '',
-      // validationState: '',
-      // errorMsg: '',
-      // errorType: ''
-    };
-  }
-
-  validationClassNameSwitch() {
-    if (this.props.fieldValidation.validationState === validationStates.valid) {
+const FormItem = (props) => {
+  function validationClassNameSwitch() {
+    if (props.fieldValidation.validationState === validationStates.valid) {
       return classNames.valid
     }
-    if (this.props.fieldValidation.validationState === validationStates.invalid) {
+    if (props.fieldValidation.validationState === validationStates.invalid) {
       return classNames.invalid
     }
     return null
   }
-  generateErrorMessage() {
-    if (this.props.fieldValidation.errorType === errorTypes.isRequired) {
-      return errorMessages.isRequired(this.props.title);
+
+  function generateErrorMessage() {
+    if (props.fieldValidation.errorType === errorTypes.isRequired) {
+      return errorMessages.isRequired(props.title);
     }
-    if (this.props.fieldValidation.errorType === errorTypes.invalidEmail) {
+    if (props.fieldValidation.errorType === errorTypes.invalidEmail) {
       return errorMessages.invalidEmail;
     }
     return errorMessages.emptyMsg;
   }
-  inputTypeSwitch() {
+
+  function inputTypeSwitch() {
     let input;
-    switch (this.props.type) {
+    switch (props.type) {
       case inputTypes.text :
         input = <Input
           type={inputTypes.text}
-          name={this.props.title}
-          placeholder={this.props.placeholderMsg}
-          value={this.props.fieldValue}
-          valid={this.props.fieldValidation.validationState === validationStates.valid}
-          invalid={this.props.fieldValidation.validationState === validationStates.invalid}
+          name={props.title}
+          placeholder={props.placeholderMsg}
+          value={props.fieldValue}
+          valid={props.fieldValidation.validationState === validationStates.valid}
+          invalid={props.fieldValidation.validationState === validationStates.invalid}
           onChange={(e) => {
-            this.props.changeValue({ title: this.props.title, fieldValue: e.target.value});
-            this.props.validateField({title: this.props.title, fieldValue: e.target.value, validationRules: validationRules[this.props.title]})
+            props.changeValue({title: props.title, fieldValue: e.target.value});
+            props.validateField({
+              title: props.title,
+              fieldValue: e.target.value,
+              validationRules: validationRules[props.title]
+            })
           }}
         />;
         break;
       case inputTypes.date :
         input = <DatePicker
-          selected={this.props.fieldValue}
+          selected={props.fieldValue}
           onChange={(dateValue) => {
-            this.props.changeValue({ title: this.props.title, fieldValue: dateValue});
-            this.props.validateField({title: this.props.title, fieldValue: dateValue, validationRules: validationRules[this.props.title]})
+            props.changeValue({title: props.title, fieldValue: dateValue});
+            props.validateField({
+              title: props.title,
+              fieldValue: dateValue,
+              validationRules: validationRules[props.title]
+            })
           }}
           minDate={new Date().setDate(new Date().getDate() + 1)}
-          placeholderText={this.props.placeholderMsg}
-          className={this.validationClassNameSwitch()}
+          placeholderText={props.placeholderMsg}
+          className={validationClassNameSwitch()}
         />;
         break;
       default:
@@ -90,18 +91,17 @@ class FormItem extends React.Component {
     return input;
   }
 
-  render() {
-    return (
-      <div className={styles.formItem}>
-        <div className={styles.formGroup}>
-          <Label>{this.props.title}{validationRules[this.props.title].isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
-          {this.inputTypeSwitch()}
-          <div className={styles.errorMessage}>{this.props.fieldValidation.errorType ? this.generateErrorMessage() : '\u00A0'}</div>
-        </div>
+  return (
+    <div className={styles.formItem}>
+      <div className={styles.formGroup}>
+        <Label>{props.title}{validationRules[props.title].isRequired ?
+          <span className={styles.emphasize}>*</span> : null}</Label>
+        {inputTypeSwitch()}
+        <div className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage() : '\u00A0'}</div>
       </div>
-    )
-  }
-}
+    </div>
+  )
+};
 
 FormItem.propTypes = {
   title: PropTypes.string,
@@ -110,6 +110,6 @@ FormItem.propTypes = {
   validation: PropTypes.object
 };
 
-FormItem = connect(mapStateToProps, mapDispatchToProps)(FormItem);
+let ConnectedFormItem = connect(mapStateToProps, mapDispatchToProps)(FormItem);
 
-export default FormItem;
+export default ConnectedFormItem;
