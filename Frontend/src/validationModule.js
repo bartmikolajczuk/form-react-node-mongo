@@ -1,13 +1,16 @@
 import * as validationStates from './consts/validationStates'
 import * as errorTypes from './consts/errorTypes'
 
+export const validateForm = (values) => {
 
-export const validate = (value, validation) => {
-  console.log(value);
-  console.log(validation);
-  let {isRequired, isEmail} = validation;
-  console.log(isRequired);
-  console.log(isEmail);
+}
+
+export const validateField = (value, validationRules) => {
+  // console.log(value);
+  // console.log(validation);
+  let {isRequired, isEmail} = validationRules;
+  // console.log(isRequired);
+  // console.log(isEmail);
 
   let validationVerdict = {validationState: validationStates.neutral, errorType: errorTypes.noError};
   if (isRequired) {

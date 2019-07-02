@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.module.scss';
+import './styles.module.scss';
 
-import Navbar from "./components/Navbar";
-import Form from "./components/Form";
+import Navbar from "../Navbar";
+import Form from "../Form";
 
 const App = () => {
 

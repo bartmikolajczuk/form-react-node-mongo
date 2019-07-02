@@ -1,0 +1,4 @@
+export const ADD_ARTICLE = "ADD_ARTICLE";
+export const CHANGE_VALUE = "CHANGE_VALUE";
+export const VALIDATE_FIELD = "VALIDATE_FIELD";
+export const VALIDATE_FORM = "VALIDATE_FORM";
