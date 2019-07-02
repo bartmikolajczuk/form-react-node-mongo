@@ -1,5 +1,5 @@
 import {CHANGE_VALUE, VALIDATE_FIELD, VALIDATE_FORM} from "../consts/actionTypes";
-import {firstName, lastName, email, eventDate} from '../consts/titles';
+import {firstName, lastName, email, eventDate} from '../consts/fieldNames';
 import {validateField, validateForm} from '../validationModule'
 import {neutral} from "../consts/validationStates";
 
@@ -23,9 +23,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   if (action.type === CHANGE_VALUE) {
     const newForm = {...state.formValues};
-    console.log(action);
-    newForm[action.payload.title] = action.payload.fieldValue;
-    console.log(newForm);
+    newForm[action.payload.fieldName] = action.payload.fieldValue;
     return {
       ...state,
       formValues: newForm
@@ -33,9 +31,7 @@ function rootReducer(state = initialState, action) {
   }
   if (action.type === VALIDATE_FIELD) {
     const newFormValidation = {...state.formValidation};
-    console.log(action);
-    newFormValidation[action.payload.title] = validateField(action.payload.fieldValue, action.payload.validationRules);
-    console.log(newFormValidation);
+    newFormValidation[action.payload.fieldName] = validateField(action.payload.fieldValue, action.payload.validationRules);
 
     return {
       ...state,
@@ -43,10 +39,8 @@ function rootReducer(state = initialState, action) {
     };
   }
   if (action.type === VALIDATE_FORM) {
-    console.log(state.formValidation);
     const newIsFormValid = validateForm(state.formValidation);
     console.log(newIsFormValid);
-
     return {
       ...state,
       isFormValid: newIsFormValid

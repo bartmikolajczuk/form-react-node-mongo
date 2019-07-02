@@ -10,20 +10,21 @@ import * as validationStates from '../../consts/validationStates'
 import * as errorMessages from '../../consts/errorMessages'
 import * as errorTypes from '../../consts/errorTypes'
 import * as inputTypes from '../../consts/inputTypes'
-import {changeValue, validateField} from "../../actions";
+import {changeValue, validateField, validateForm} from "../../actions";
 import {validationRules} from "../../consts/validationRules";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    fieldValue: state.formValues[ownProps.title],
-    fieldValidation: state.formValidation[ownProps.title]
+    fieldValue: state.formValues[ownProps.fieldName],
+    fieldValidation: state.formValidation[ownProps.fieldName]
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     changeValue: field => dispatch(changeValue(field)),
-    validateField: field => dispatch(validateField(field))
+    validateField: field => dispatch(validateField(field)),
+    validateForm: () => dispatch(validateForm())
   };
 }
 
@@ -54,18 +55,19 @@ const FormItem = (props) => {
       case inputTypes.text :
         input = <Input
           type={inputTypes.text}
-          name={props.title}
+          name={props.fieldName}
           placeholder={props.placeholderMsg}
           value={props.fieldValue}
           valid={props.fieldValidation.validationState === validationStates.valid}
           invalid={props.fieldValidation.validationState === validationStates.invalid}
           onChange={(e) => {
-            props.changeValue({title: props.title, fieldValue: e.target.value});
+            props.changeValue({fieldName: props.fieldName, fieldValue: e.target.value});
             props.validateField({
-              title: props.title,
+              fieldName: props.fieldName,
               fieldValue: e.target.value,
-              validationRules: validationRules[props.title]
-            })
+              validationRules: validationRules[props.fieldName]
+            });
+            props.validateForm()
           }}
         />;
         break;
@@ -73,12 +75,13 @@ const FormItem = (props) => {
         input = <DatePicker
           selected={props.fieldValue}
           onChange={(dateValue) => {
-            props.changeValue({title: props.title, fieldValue: dateValue});
+            props.changeValue({fieldName: props.fieldName, fieldValue: dateValue});
             props.validateField({
-              title: props.title,
+              fieldName: props.fieldName,
               fieldValue: dateValue,
-              validationRules: validationRules[props.title]
-            })
+              validationRules: validationRules[props.fieldName]
+            });
+            props.validateForm()
           }}
           minDate={new Date().setDate(new Date().getDate() + 1)}
           placeholderText={props.placeholderMsg}
@@ -94,7 +97,7 @@ const FormItem = (props) => {
   return (
     <div className={styles.formItem}>
       <div className={styles.formGroup}>
-        <Label>{props.title}{validationRules[props.title].isRequired ?
+        <Label>{props.title}{validationRules[props.fieldName].isRequired ?
           <span className={styles.emphasize}>*</span> : null}</Label>
         {inputTypeSwitch()}
         <div className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage() : '\u00A0'}</div>

@@ -41,10 +41,15 @@
   align-items: flex-start;
   display: block;
   border-width: 0;
+  transition: 0.3s;
 }
 
 .submitButton:hover {
   background-color: #FF3373;
+}
+
+.submitButton:disabled {
+  background-color: #a9a5a8;
 }
 
 .inlineElement {

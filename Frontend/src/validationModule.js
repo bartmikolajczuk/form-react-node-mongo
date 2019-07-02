@@ -17,6 +17,7 @@ export const validateForm = (formValidation) => {
     else if (fieldValidation.validationState === validationStates.neutral && validationRules[key].isRequired) {
       isFormValid = false
     }
+    return isFormValid;
   });
   return isFormValid
 };

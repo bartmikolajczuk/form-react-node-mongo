@@ -1,4 +1,4 @@
-import {firstName, lastName, email, eventDate} from "./titles";
+import {firstName, lastName, email, eventDate} from "./fieldNames";
 
 export const validationRules = {
   [firstName]: {

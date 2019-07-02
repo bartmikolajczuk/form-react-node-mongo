@@ -1,0 +1,1 @@
+export const publishEvent = 'PUBLISH EVENT';
