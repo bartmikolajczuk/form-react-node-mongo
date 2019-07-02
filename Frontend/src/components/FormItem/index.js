@@ -11,6 +11,7 @@ import * as errorMessages from '../../consts/errorMessages'
 import * as errorTypes from '../../consts/errorTypes'
 import * as inputTypes from '../../consts/inputTypes'
 import {changeValue, validateField} from "../../actions";
+import {validationRules} from "../../consts/validationRules";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 function mapDispatchToProps(dispatch) {
   return {
     changeValue: field => dispatch(changeValue(field)),
-    validate: field => dispatch(validateField(field))
+    validateField: field => dispatch(validateField(field))
   };
 }
 
@@ -67,16 +68,8 @@ class FormItem extends React.Component {
           invalid={this.props.fieldValidation.validationState === validationStates.invalid}
           onChange={(e) => {
             this.props.changeValue({ title: this.props.title, fieldValue: e.target.value});
-            this.props.validate({title: this.props.title, fieldValue: e.target.value, validationRules: this.props.validationRules})
+            this.props.validateField({title: this.props.title, fieldValue: e.target.value, validationRules: validationRules[this.props.title]})
           }}
-          // onChange={(e) => {
-          //   this.setState({fieldValue: e.target.value}, () => {
-          //     this.setState({
-          //       validationState: validate(this.state.fieldValue, this.props.validation).validationState,
-          //       errorType: validate(this.state.fieldValue, this.props.validation).errorType
-          //     })
-          //   });
-          // }}
         />;
         break;
       case inputTypes.date :
@@ -84,16 +77,8 @@ class FormItem extends React.Component {
           selected={this.props.fieldValue}
           onChange={(dateValue) => {
             this.props.changeValue({ title: this.props.title, fieldValue: dateValue});
-            this.props.validate({title: this.props.title, fieldValue: dateValue, validationRules: this.props.validationRules})
+            this.props.validateField({title: this.props.title, fieldValue: dateValue, validationRules: validationRules[this.props.title]})
           }}
-          // onChange={(dateValue) => {
-          //   this.setState({fieldValue: dateValue}, () => {
-          //     this.setState({
-          //       validationState: validate(this.state.fieldValue, this.props.validation).validationState,
-          //       errorType: validate(this.state.fieldValue, this.props.validation).errorType
-          //     })
-          //   });
-          // }}
           minDate={new Date().setDate(new Date().getDate() + 1)}
           placeholderText={this.props.placeholderMsg}
           className={this.validationClassNameSwitch()}
@@ -109,7 +94,7 @@ class FormItem extends React.Component {
     return (
       <div className={styles.formItem}>
         <div className={styles.formGroup}>
-          <Label>{this.props.title}{this.props.validationRules.isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
+          <Label>{this.props.title}{validationRules[this.props.title].isRequired ? <span className={styles.emphasize}>*</span> : null}</Label>
           {this.inputTypeSwitch()}
           <div className={styles.errorMessage}>{this.props.fieldValidation.errorType ? this.generateErrorMessage() : '\u00A0'}</div>
         </div>

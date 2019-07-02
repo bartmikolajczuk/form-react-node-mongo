@@ -1,9 +1,25 @@
 import * as validationStates from './consts/validationStates'
+import {validationRules} from "./consts/validationRules";
 import * as errorTypes from './consts/errorTypes'
 
-export const validateForm = (values) => {
+export const validateForm = (formValidation) => {
+  let isFormValid = true;
+  // console.log("form validation: ");
+  // console.log(formValidation);
 
-}
+  Object.entries(formValidation).map(([key, fieldValidation]) => {
+    // console.log("field validation: ");
+    // console.log(fieldValidation.validationState);
+    // console.log(fieldValidation.validationState === validationStates.invalid);
+    if (fieldValidation.validationState === validationStates.invalid) {
+      isFormValid = false;
+    }
+    else if (fieldValidation.validationState === validationStates.neutral && validationRules[key].isRequired) {
+      isFormValid = false
+    }
+  });
+  return isFormValid
+};
 
 export const validateField = (value, validationRules) => {
   // console.log(value);

@@ -1,6 +1,7 @@
-import {ADD_ARTICLE, CHANGE_VALUE, VALIDATE_FIELD, VALIDATE_FORM} from "../consts/actionTypes";
+import {CHANGE_VALUE, VALIDATE_FIELD, VALIDATE_FORM} from "../consts/actionTypes";
 import {firstName, lastName, email, eventDate} from '../consts/titles';
 import {validateField, validateForm} from '../validationModule'
+import {neutral} from "../consts/validationStates";
 
 const initialState = {
   formValues: {
@@ -10,21 +11,16 @@ const initialState = {
     [eventDate]: ''
   },
   formValidation: {
-    [firstName]: '',
-    [lastName]: '',
-    [email]: '',
-    [eventDate]: ''
+    [firstName]: {validationState: neutral},
+    [lastName]: {validationState: neutral},
+    [email]: {validationState: neutral},
+    [eventDate]: {validationState: neutral}
   },
   isFormValid: false
 
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === ADD_ARTICLE) {
-    return Object.assign({}, state, {
-      articles: state.articles.concat(action.payload)
-    });
-  }
   if (action.type === CHANGE_VALUE) {
     const newForm = {...state.formValues};
     console.log(action);
@@ -47,14 +43,13 @@ function rootReducer(state = initialState, action) {
     };
   }
   if (action.type === VALIDATE_FORM) {
-    const newFormValidation = {...state.formValidation};
-    console.log(action);
-    newFormValidation[action.payload.title] = validateField(action.payload.fieldValue, action.payload.validationRules);
-    console.log(newFormValidation);
+    console.log(state.formValidation);
+    const newIsFormValid = validateForm(state.formValidation);
+    console.log(newIsFormValid);
 
     return {
       ...state,
-      formValidation: newFormValidation
+      isFormValid: newIsFormValid
     };
   }
   return state;
