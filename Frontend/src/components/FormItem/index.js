@@ -28,7 +28,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const FormItem = (props) => {
+export const FormItem = (props) => {
   function validationClassNameSwitch() {
     if (props.fieldValidation.validationState === validationStates.valid) {
       return classNames.valid
@@ -113,6 +113,6 @@ FormItem.propTypes = {
   validation: PropTypes.object
 };
 
-let ConnectedFormItem = connect(mapStateToProps, mapDispatchToProps)(FormItem);
+const ConnectedFormItem = connect(mapStateToProps, mapDispatchToProps)(FormItem);
 
 export default ConnectedFormItem;

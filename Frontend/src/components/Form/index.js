@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const Form = (props) => {
+export const Form = (props) => {
   return (
     <>
       <div className={styles.formTopic}>
