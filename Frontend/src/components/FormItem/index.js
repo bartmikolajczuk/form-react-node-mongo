@@ -56,6 +56,7 @@ export const FormItem = (props) => {
         input = <Input
           type={inputTypes.text}
           name={props.fieldName}
+          data-testid={props.fieldName}
           placeholder={props.placeholderMsg}
           value={props.fieldValue}
           valid={props.fieldValidation.validationState === validationStates.valid}
@@ -74,6 +75,7 @@ export const FormItem = (props) => {
       case inputTypes.date :
         input = <DatePicker
           selected={props.fieldValue}
+          data-testid={props.fieldName}
           onChange={(dateValue) => {
             props.changeValue({fieldName: props.fieldName, fieldValue: dateValue});
             props.validateField({
@@ -100,7 +102,7 @@ export const FormItem = (props) => {
         <Label>{props.title}{validationRules[props.fieldName].isRequired ?
           <span className={styles.emphasize}>*</span> : null}</Label>
         {inputTypeSwitch()}
-        <div className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage() : '\u00A0'}</div>
+        <div data-testid={props.fieldName + 'ErrorMessage'} className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage() : '\u00A0'}</div>
       </div>
     </div>
   )

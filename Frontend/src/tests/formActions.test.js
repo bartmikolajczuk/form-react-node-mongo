@@ -4,7 +4,7 @@ import {validationRules} from "../consts/validationRules";
 import {eventDate, firstName, lastName, email} from "../consts/fieldNames";
 
 
-describe('ACTIONS - Form actions tests',()=>{
+describe('ACTIONS - Form action creators tests',()=>{
   it('creates CHANGE_VALUE when value is changed', () => {
     const fieldParams = {fieldName: firstName, fieldValue: 'hello'};
     const changeValueAction = changeValue(fieldParams);

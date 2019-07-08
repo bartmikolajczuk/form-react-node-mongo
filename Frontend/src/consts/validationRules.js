@@ -5,7 +5,7 @@ export const validationRules = {
     isRequired: true
   },
   [lastName]: {
-    isRequired: false
+    isRequired: true
   },
   [email]: {
     isRequired: true,

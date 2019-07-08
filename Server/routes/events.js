@@ -1,31 +1,26 @@
 let express = require('express');
 let router = express.Router();
-let mongoose = require('mongoose');
+let Event = require('../models/event');
 
-let eventSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  eventDate: Date
-});
 
-let Event = mongoose.model('Event', eventSchema);
-let testEvent;
 router.post('/', function (req, res, next) {
   const formValues = req.body.formValues;
   // console.log(formValues);
 
-  testEvent = new Event({
+
+  let event = new Event({
     firstName: formValues.firstName,
     lastName: formValues.lastName,
     email: formValues.email,
     eventDate: formValues.eventDate
   });
-  console.log(testEvent); // 'Silence'
-  testEvent.save(function (err) {
-    if (err) { return next(err); }
+  console.log(event); // 'Silence'
+  event.save(function (err) {
+    if (err) {
+      return next(err);
+    }
   });
-  res.send(JSON.stringify(testEvent))
+  res.send(JSON.stringify(event))
 });
 
 module.exports = router;
