@@ -3,7 +3,7 @@ import {validateField, validateForm} from '../validationModule'
 import {initialFormState} from "../consts/initialFormState";
 
 
-export function rootReducer(state = initialFormState, action) {
+export function formReducer(state = initialFormState, action) {
   if (action.type === CHANGE_VALUE) {
     const newForm = {...state.formValues};
     newForm[action.payload.fieldName] = action.payload.fieldValue;
@@ -37,4 +37,4 @@ export function rootReducer(state = initialFormState, action) {
   return state;
 }
 
-export default rootReducer;
+export default formReducer;

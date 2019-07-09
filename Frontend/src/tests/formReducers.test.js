@@ -1,4 +1,4 @@
-import {rootReducer} from '../reducers'
+import {formReducer} from '../reducers'
 import {email, eventDate, firstName, lastName} from "../consts/fieldNames";
 import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD, SUBMIT_FORM} from "../consts/actionTypes";
 import {neutral, valid} from "../consts/validationStates";
@@ -6,7 +6,7 @@ import {initialFormState} from "../consts/initialFormState";
 
 describe('REDUCERS - Form reducers tests', () => {
   it('should return the initial state', () => {
-    expect(rootReducer(undefined, {})).toEqual(
+    expect(formReducer(undefined, {})).toEqual(
       {
         formValues: {
           [firstName]: '',
@@ -15,10 +15,10 @@ describe('REDUCERS - Form reducers tests', () => {
           [eventDate]: ''
         },
         formValidation: {
-          [firstName]: {validationState: neutral},
-          [lastName]: {validationState: neutral},
-          [email]: {validationState: neutral},
-          [eventDate]: {validationState: neutral}
+          [firstName]: {validationState: neutral, errorType: ''},
+          [lastName]: {validationState: neutral, errorType: ''},
+          [email]: {validationState: neutral, errorType: ''},
+          [eventDate]: {validationState: neutral, errorType: ''}
         },
         isFormValid: false,
         isFormSubmitted: false
@@ -32,7 +32,7 @@ describe('REDUCERS - Form reducers tests', () => {
     const newFormValues = {...initialFormState.formValues};
     newFormValues[fieldParams.fieldName] = fieldParams.fieldValue;
     expect(
-      rootReducer(undefined, {
+      formReducer(undefined, {
         type: CHANGE_VALUE,
         payload: fieldParams
       })
@@ -44,7 +44,7 @@ describe('REDUCERS - Form reducers tests', () => {
 
   it('should handle VALIDATE_FORM with empty form', () => {
     expect(
-      rootReducer(undefined, {
+      formReducer(undefined, {
         type: VALIDATE_FORM
       })
     ).toEqual({
@@ -71,7 +71,7 @@ describe('REDUCERS - Form reducers tests', () => {
     };
 
     expect(
-      rootReducer(completedFormState, {
+      formReducer(completedFormState, {
         type: VALIDATE_FORM
       })
     ).toEqual({
@@ -82,7 +82,7 @@ describe('REDUCERS - Form reducers tests', () => {
 
   it('should handle SUBMIT_FORM ', () => {
     expect(
-      rootReducer(undefined, {
+      formReducer(undefined, {
         type: SUBMIT_FORM
       })
     ).toEqual({
@@ -96,7 +96,7 @@ describe('REDUCERS - Form reducers tests', () => {
     const newFormValues = {...initialFormState.formValues};
     newFormValues[fieldParams.fieldName] = fieldParams.fieldValue;
     expect(
-      rootReducer(undefined, {
+      formReducer(undefined, {
         type: CHANGE_VALUE,
         payload: fieldParams
       })

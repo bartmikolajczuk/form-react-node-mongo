@@ -11,7 +11,7 @@ import * as infoBoxMessages from '../../consts/infoBoxMessages'
 import {publishEvent} from "../../consts/buttons";
 import {validateForm, submitForm} from "../../actions";
 import InfoBox from "../../components/InfoBox";
-import {generatePlaceholder} from "../../messageManager";
+import {generatePlaceholder} from "../../utils/messageManager";
 
 const mapStateToProps = (state) => {
   return {

@@ -10,7 +10,7 @@ import * as dataTestIds from '../../consts/dataTestIds'
 import * as validationStates from '../../consts/validationStates'
 import * as inputTypes from '../../consts/inputTypes'
 import {validationRules} from "../../consts/validationRules";
-import {generateErrorMessage, generateTitle} from '../../messageManager'
+import {generateErrorMessage, generateTitle} from '../../utils/messageManager'
 import {changeValue, validateField, validateForm} from "../../actions";
 
 const mapStateToProps = (state, ownProps) => {
@@ -95,7 +95,7 @@ export const FormItem = (props) => {
         {inputTypeSwitch()}
         <div
           data-testid={props.fieldName + dataTestIds.errorMsg}
-          className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage(props.fieldName, props.fieldValidation.errorType) : '\u00A0'}</div>
+          className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage(props.fieldName, props.fieldValidation.errorType) : ' '}</div>
       </div>
     </div>
   )

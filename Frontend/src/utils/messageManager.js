@@ -1,8 +1,8 @@
-import * as errorTypes from "./consts/errorTypes";
-import * as errorMessages from "./consts/errorMessages";
-import * as fieldNames from "./consts/fieldNames";
-import * as titles from "./consts/titles";
-import * as placeholders from "./consts/placeholders";
+import * as errorTypes from "../consts/errorTypes";
+import * as errorMessages from "../consts/errorMessages";
+import * as fieldNames from "../consts/fieldNames";
+import * as titles from "../consts/titles";
+import * as placeholders from "../consts/placeholders";
 
 export const generateErrorMessage = (fieldName, errorType) => {
   if (errorType === errorTypes.isRequired) {
