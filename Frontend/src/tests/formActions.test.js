@@ -1,5 +1,5 @@
-import {changeValue, validateForm, validateField} from "../actions/index";
-import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD} from "../consts/actionTypes";
+import {changeValue, validateForm, validateField, submitForm} from "../actions/index";
+import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD, SUBMIT_FORM} from "../consts/actionTypes";
 import {validationRules} from "../consts/validationRules";
 import {eventDate, firstName, lastName, email} from "../consts/fieldNames";
 
@@ -14,6 +14,11 @@ describe('ACTIONS - Form action creators tests',()=>{
   it('creates VALIDATE_FORM when validateForm is called', () => {
     const validateFormAction = validateForm();
     expect(validateFormAction).toEqual({type: VALIDATE_FORM})
+  });
+
+  it('creates SUBMIT_FORM when validateForm is called', () => {
+    const submitFormAction = submitForm();
+    expect(submitFormAction).toEqual({type: SUBMIT_FORM})
   });
 
   it('creates VALIDATE_FIELD when validateField is called', () => {

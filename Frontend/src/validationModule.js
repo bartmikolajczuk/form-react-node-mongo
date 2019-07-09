@@ -4,13 +4,8 @@ import * as errorTypes from './consts/errorTypes'
 
 export const validateForm = (formValidation) => {
   let isFormValid = true;
-  // console.log("form validation: ");
-  // console.log(formValidation);
 
   Object.entries(formValidation).map(([key, fieldValidation]) => {
-    // console.log("field validation: ");
-    // console.log(fieldValidation.validationState);
-    // console.log(fieldValidation.validationState === validationStates.invalid);
     if (fieldValidation.validationState === validationStates.invalid) {
       isFormValid = false;
     }
@@ -23,11 +18,7 @@ export const validateForm = (formValidation) => {
 };
 
 export const validateField = (value, validationRules) => {
-  // console.log(value);
-  // console.log(validation);
   let {isRequired, isEmail} = validationRules;
-  // console.log(isRequired);
-  // console.log(isEmail);
 
   let validationVerdict = {validationState: validationStates.neutral, errorType: errorTypes.noError};
   if (isRequired) {

@@ -3,7 +3,7 @@ import {createStore} from 'redux'
 import {Provider, connect} from 'react-redux'
 import {rootReducer} from "../reducers";
 import {render, fireEvent, cleanup, waitForElement} from '@testing-library/react'
-import {Form} from "../components/Form";
+import {Form} from "../containers/Form";
 import {firstName, lastName, email, eventDate} from "../consts/fieldNames";
 import {isRequired, invalidEmail} from "../consts/errorMessages";
 import * as titles from "../consts/titles"

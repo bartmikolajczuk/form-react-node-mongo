@@ -1,17 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import styles from './styles.module.scss';
-import {Label, Input} from 'reactstrap';
 import DatePicker from 'react-datepicker';
+import styles from './styles.module.scss';
 import "./react-datepicker.css";
-import * as classNames from '../../consts/validationClassNames'
+import {Label, Input} from 'reactstrap';
+import * as validationClassNames from '../../consts/validationClassNames'
+import * as dataTestIds from '../../consts/dataTestIds'
 import * as validationStates from '../../consts/validationStates'
-import * as errorMessages from '../../consts/errorMessages'
-import * as errorTypes from '../../consts/errorTypes'
 import * as inputTypes from '../../consts/inputTypes'
-import {changeValue, validateField, validateForm} from "../../actions";
 import {validationRules} from "../../consts/validationRules";
+import {generateErrorMessage, generateTitle} from '../../messageManager'
+import {changeValue, validateField, validateForm} from "../../actions";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -31,23 +31,14 @@ function mapDispatchToProps(dispatch) {
 export const FormItem = (props) => {
   function validationClassNameSwitch() {
     if (props.fieldValidation.validationState === validationStates.valid) {
-      return classNames.valid
+      return validationClassNames.valid
     }
     if (props.fieldValidation.validationState === validationStates.invalid) {
-      return classNames.invalid
+      return validationClassNames.invalid
     }
     return null
   }
 
-  function generateErrorMessage() {
-    if (props.fieldValidation.errorType === errorTypes.isRequired) {
-      return errorMessages.isRequired(props.title);
-    }
-    if (props.fieldValidation.errorType === errorTypes.invalidEmail) {
-      return errorMessages.invalidEmail;
-    }
-    return errorMessages.emptyMsg;
-  }
 
   function inputTypeSwitch() {
     let input;
@@ -56,7 +47,7 @@ export const FormItem = (props) => {
         input = <Input
           type={inputTypes.text}
           name={props.fieldName}
-          data-testid={props.fieldName}
+          data-testid={props.fieldName + dataTestIds.input}
           placeholder={props.placeholderMsg}
           value={props.fieldValue}
           valid={props.fieldValidation.validationState === validationStates.valid}
@@ -75,7 +66,6 @@ export const FormItem = (props) => {
       case inputTypes.date :
         input = <DatePicker
           selected={props.fieldValue}
-          data-testid={props.fieldName}
           onChange={(dateValue) => {
             props.changeValue({fieldName: props.fieldName, fieldValue: dateValue});
             props.validateField({
@@ -83,8 +73,9 @@ export const FormItem = (props) => {
               fieldValue: dateValue,
               validationRules: validationRules[props.fieldName]
             });
-            props.validateForm()
+            props.validateForm();
           }}
+          onChangeRaw={(e) => {e.preventDefault()}}
           minDate={new Date().setDate(new Date().getDate() + 1)}
           placeholderText={props.placeholderMsg}
           className={validationClassNameSwitch()}
@@ -99,20 +90,26 @@ export const FormItem = (props) => {
   return (
     <div className={styles.formItem}>
       <div className={styles.formGroup}>
-        <Label>{props.title}{validationRules[props.fieldName].isRequired ?
+        <Label>{generateTitle(props.fieldName)}{validationRules[props.fieldName].isRequired ?
           <span className={styles.emphasize}>*</span> : null}</Label>
         {inputTypeSwitch()}
-        <div data-testid={props.fieldName + 'ErrorMessage'} className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage() : '\u00A0'}</div>
+        <div
+          data-testid={props.fieldName + dataTestIds.errorMsg}
+          className={styles.errorMessage}>{props.fieldValidation.errorType ? generateErrorMessage(props.fieldName, props.fieldValidation.errorType) : '\u00A0'}</div>
       </div>
     </div>
   )
 };
 
 FormItem.propTypes = {
-  title: PropTypes.string,
-  required: PropTypes.bool,
+  fieldName: PropTypes.string,
+  type: PropTypes.string,
   placeholderMsg: PropTypes.string,
-  validation: PropTypes.object
+  fieldValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date)
+  ]),
+  fieldValidation: PropTypes.objectOf(PropTypes.string)
 };
 
 const ConnectedFormItem = connect(mapStateToProps, mapDispatchToProps)(FormItem);

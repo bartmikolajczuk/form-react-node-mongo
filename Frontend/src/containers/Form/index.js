@@ -1,15 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import styles from './styles.module.scss'
 import FormItem from "../FormItem";
-import * as placeholders from '../../consts/placeholders'
 import * as fieldNames from '../../consts/fieldNames'
-import * as titles from '../../consts/titles'
+import * as dataTestIds from '../../consts/dataTestIds'
 import * as inputTypes from '../../consts/inputTypes'
+import * as infoBoxMessages from '../../consts/infoBoxMessages'
 import {publishEvent} from "../../consts/buttons";
 import {validateForm, submitForm} from "../../actions";
-import InfoBox from "../InfoBox";
+import InfoBox from "../../components/InfoBox";
+import {generatePlaceholder} from "../../messageManager";
 
 const mapStateToProps = (state) => {
   return {
@@ -28,35 +30,31 @@ function mapDispatchToProps(dispatch) {
 
 export const Form = (props) => {
   return (
-    props.isFormSubmitted ? <InfoBox title={"Success!"} description={"Event has been added. "}/> :
+    props.isFormSubmitted ? <InfoBox title={infoBoxMessages.success} description={infoBoxMessages.eventAdded}/> :
         <>
           <div className={styles.formTopic}>
             <FormItem
               fieldName={fieldNames.firstName}
-              title={titles.firstName}
               type={inputTypes.text}
-              placeholderMsg={placeholders.typeYourXHere(titles.firstName)}
+              placeholderMsg={generatePlaceholder(fieldNames.firstName)}
             />
             <FormItem
               fieldName={fieldNames.lastName}
-              title={titles.lastName}
               type={inputTypes.text}
-              placeholderMsg={placeholders.typeYourXHere(titles.lastName)}
+              placeholderMsg={generatePlaceholder(fieldNames.lastName)}
             />
             <FormItem
               fieldName={fieldNames.email}
-              title={titles.email}
               type={inputTypes.text}
-              placeholderMsg={placeholders.typeYourXHere(titles.email)}
+              placeholderMsg={generatePlaceholder(fieldNames.email)}
             />
             <FormItem
               fieldName={fieldNames.eventDate}
-              title={titles.eventDate}
               type={inputTypes.date}
-              placeholderMsg={placeholders.pickDate}
+              placeholderMsg={generatePlaceholder(fieldNames.eventDate)}
             />
           </div>
-          <button type="submit" className={styles.submitButton}
+          <button type="submit" className={styles.submitButton} data-testid={dataTestIds.submitButton}
                   onClick={() => {
                     props.validateForm();
                     axios.post(
@@ -84,6 +82,12 @@ export const Form = (props) => {
           </button>
         </>
   );
+};
+
+FormItem.propTypes = {
+  isFormValid: PropTypes.bool,
+  formValues: PropTypes.objectOf(PropTypes.string, PropTypes.instanceOf(Date)),
+  isFormSubmitted: PropTypes.bool
 };
 
 const ConnectedForm = connect(mapStateToProps, mapDispatchToProps)(Form);

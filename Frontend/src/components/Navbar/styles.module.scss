@@ -1,13 +1,13 @@
 @import "../../consts/colors.scss";
 .navBar {
-  background-color: $purple;
-  height: 79px;
+  background-color: $blue;
+  height: 80px;
   box-sizing: content-box;
   text-align: left;
-  border-top: 1em solid $darkPurple;
+  border-top: 1em solid $darkblue;
 }
 .navBarTitle {
-  line-height: 79px;
+  line-height: 80px;
   padding-left: 2vw;
   font-weight: 300;
   color: $white;

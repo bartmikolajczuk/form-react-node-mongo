@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.module.scss';
 
 import Navbar from "../Navbar";
-import Form from "../Form";
+import Form from "../../containers/Form";
 
 const App = () => {
 

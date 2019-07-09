@@ -1,13 +1,13 @@
 .navBar {
-  background-color: #410C7A;
-  height: 79px;
+  background-color: #355990;
+  height: 80px;
   box-sizing: content-box;
   text-align: left;
-  border-top: 1em solid #370A68;
+  border-top: 1em solid #1E3B68;
 }
 
 .navBarTitle {
-  line-height: 79px;
+  line-height: 80px;
   padding-left: 2vw;
   font-weight: 300;
   color: #fff;

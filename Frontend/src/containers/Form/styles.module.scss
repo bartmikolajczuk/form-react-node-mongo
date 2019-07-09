@@ -1,0 +1,32 @@
+@import "../../consts/colors";
+
+.submitButton {
+  padding: 0.7em;
+  color: $white;
+  background-color: $orange;
+  margin: 2em auto;
+  border-radius: 4px;
+  text-align: center;
+  align-items: flex-start;
+  display: block;
+  border-width: 0;
+  transition: 0.3s;
+}
+.submitButton:hover {
+  background-color: $darkOrange;
+}
+.submitButton:disabled {
+  background-color: $grey;
+}
+
+.formTopic {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 4px;
+  box-shadow: $silver 0 0 5;
+  background-color: $white;
+  padding: 1vw 2vw;
+}
+

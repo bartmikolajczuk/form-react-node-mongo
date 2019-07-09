@@ -9,10 +9,10 @@ export const initialFormState = {
     [eventDate]: ''
   },
   formValidation: {
-    [firstName]: {validationState: neutral},
-    [lastName]: {validationState: neutral},
-    [email]: {validationState: neutral},
-    [eventDate]: {validationState: neutral}
+    [firstName]: {validationState: neutral, errorType: ''},
+    [lastName]: {validationState: neutral, errorType: ''},
+    [email]: {validationState: neutral, errorType: ''},
+    [eventDate]: {validationState: neutral, errorType: ''}
   },
   isFormValid: false,
   isFormSubmitted: false

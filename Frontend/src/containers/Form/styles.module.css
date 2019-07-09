@@ -1,0 +1,33 @@
+.submitButton {
+  padding: 0.7em;
+  color: #fff;
+  background-color: #ff8e1d;
+  margin: 2em auto;
+  border-radius: 4px;
+  text-align: center;
+  align-items: flex-start;
+  display: block;
+  border-width: 0;
+  transition: 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #d5761d;
+}
+
+.submitButton:disabled {
+  background-color: #a9a5a8;
+}
+
+.formTopic {
+  display: block;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 4px;
+  box-shadow: #D8D8DA 0 0 5;
+  background-color: #fff;
+  padding: 1vw 2vw;
+}
+
+/*# sourceMappingURL=styles.module.css.map */
