@@ -1,8 +1,8 @@
-import {formReducer} from '../reducers'
+import {formReducer} from './index'
 import {email, eventDate, firstName, lastName} from "../consts/fieldNames";
 import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD, SUBMIT_FORM} from "../actions/consts/actionTypes";
 import {neutral, valid} from "../utils/consts/validationStates";
-import {initialFormState} from "../reducers/index";
+import {initialFormState} from "./index";
 
 describe('REDUCERS - Form reducers tests', () => {
   it('should return the initial state', () => {
