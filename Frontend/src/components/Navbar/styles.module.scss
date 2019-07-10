@@ -1,4 +1,6 @@
-@import "../../consts/colors.scss";
+@import "../../styles/colors";
+@import "../../styles/fontWeights";
+
 .navBar {
   background-color: $blue;
   height: 80px;
@@ -6,12 +8,14 @@
   text-align: left;
   border-top: 1em solid $darkblue;
 }
+
 .navBarTitle {
   line-height: 80px;
-  padding-left: 2vw;
-  font-weight: 300;
+  padding-left: 1rem;
+  font-weight: $small;
   color: $white;
 }
+
 .container {
   width: 50%;
   margin: 0 auto;

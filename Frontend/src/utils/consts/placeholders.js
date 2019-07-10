@@ -1,0 +1,1 @@
+export const datePlaceholder = "Pick your event's date";

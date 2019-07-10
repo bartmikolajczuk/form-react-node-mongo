@@ -1,10 +1,10 @@
-@import "../../consts/colors";
+@import '../../styles/colors.scss';
 
 .submitButton {
-  padding: 0.7em;
+  padding: 0.7rem;
   color: $white;
   background-color: $orange;
-  margin: 2em auto;
+  margin: 2rem auto;
   border-radius: 4px;
   text-align: center;
   align-items: flex-start;
@@ -27,6 +27,6 @@
   border-radius: 4px;
   box-shadow: $silver 0 0 5;
   background-color: $white;
-  padding: 1vw 2vw;
+  padding: 10px 20px;
 }
 

@@ -4,9 +4,9 @@ import styles from './styles.module.scss'
 
 const InfoBox = (props) => (
   <div className={styles.box} data-testid={'infoBox'}>
-    <h1 className={styles.title} data-testid={'infoBox-title'}>
+    <div className={styles.title} data-testid={'infoBox-title'}>
       {props.title}
-    </h1>
+    </div>
     <div>{props.description}</div>
   </div>
 );

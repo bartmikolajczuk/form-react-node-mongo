@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let EventSchema = new Schema({
+const EventSchema = new Schema({
   firstName: String,
   lastName: String,
   email: String,

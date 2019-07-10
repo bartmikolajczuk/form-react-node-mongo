@@ -1,6 +1,6 @@
 import {changeValue, validateForm, validateField, submitForm} from "../actions/index";
-import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD, SUBMIT_FORM} from "../consts/actionTypes";
-import {validationRules} from "../consts/validationRules";
+import {CHANGE_VALUE, VALIDATE_FORM, VALIDATE_FIELD, SUBMIT_FORM} from "../actions/consts/actionTypes";
+import {validationRules} from "../utils/consts/validationRules";
 import {eventDate, firstName, lastName, email} from "../consts/fieldNames";
 
 

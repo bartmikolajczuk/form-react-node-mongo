@@ -1,15 +1,17 @@
-@import "../../consts/colors.scss";
+@import "../../styles/colors";
+@import "../../styles/fontWeights";
 
 .box {
   width: 50%;
-  margin: 5vh auto;
-  padding: 1em 2em;
+  margin: 30px auto;
+  padding: 1rem 2rem;
   box-shadow: rgb(235, 235, 235) 0px 0px 5px;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: $whiteIceGreen;
   .title {
     color: $green;
     margin: 0 auto;
-    font-weight: 400;
+    font-size: 40px;
+    font-weight: $medium;
   }
 }

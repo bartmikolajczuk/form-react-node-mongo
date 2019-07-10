@@ -1,4 +1,4 @@
-@import "../../consts/colors";
+@import "../../styles/colors";
 
 .formGroup {
   width: 100%;
@@ -12,9 +12,9 @@
 
 .errorMessage {
   color: $red;
-  font-size: small;
-  padding-left: 0.5em;
-  padding-top: 0.2em;
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+  padding-top: 0.2rem;
 }
 .emphasize {
   color: $red;
